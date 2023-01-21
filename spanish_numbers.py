@@ -14,33 +14,39 @@ class SpanishNumbers:
         self.rounds = 0
         self.incorrect = 0
 
-    def number_to_text(self, number):
-        """We convert int to string to allow indexing.  Reversing the int keeps consistency in indexing.  
-        For example, ones place is 2nd if two digit number and third in a three digit number.  If reversed it's always first."""
-        number = number[::-1]
-        print("Number is...", number)
+    ####################
+    # Conversions
+    ####################
+    def number_to_text(self, number:str):
+        """Converts a number into Spanish text."""
+        # Reversing number keeps index consist.  (Ones place is always [0])
+        reversed_num = number[::-1]
         text = ''
+
+        # Special Cases
+        if 10 <= int(number) <= 15:
+            return self.exceptions.get(number)
+
+        # Regular Conversions
         if len(number) >= 4:
-            text += self._thousands_place_to_text(number[3])
+            text += self._thousands_to_text(reversed_num[3])
         if len(number) >= 3:
-            text += self._hundreds_place_to_text(number[2])
+            text += self._hundreds_to_text(reversed_num[2])
         if len(number) >= 2:
-            print("MORE THAN 2")
-            print(number[0:1])
-            text += self._tens_and_ones_place_to_text(number[0:2])
-        if len(number) == 1:
-            text = self._tens_and_ones_place_to_text(number[0])
+            text += self._tens_to_text(reversed_num[1])
+        text += self.ones.get(number[0])
         return text
 
 
-    def _thousands_place_to_text(self, number:str):
+    def _thousands_to_text(self, number:str):
         """Converts single thousands place digit to the appropriate Spanish word"""
         if number != '1':
             return self.ones.get(number) + ' mil'
         else:
             return 'mil'
 
-    def _hundreds_place_to_text(self, number:str):
+
+    def _hundreds_to_text(self, number:str):
         """Converts single hundreds place digit to the appropriate Spanish word"""
         match number:
             case '5':
@@ -52,23 +58,15 @@ class SpanishNumbers:
             case other:
                 return self.ones.get(number) + 'cientos'
 
-    def _tens_and_ones_place_to_text(self, number:str):
-        """Converts both the ones and tens place digits to the appropriate Spanish word."""
-        # Return number to actual order
-        number = number[::-1]
-        integer = int(number)
-        print("ADDING TENS PLACE")
-        if integer < 10:
-            print("UNDER 10")
-            return self.ones.get(number)
-        elif integer < 16:
-            print("UNDER 16")
-            return self.exceptions.get(number)      
-        else:
-            print("NORMAL")
-            return self.tens.get(number[0]) + self.ones.get(number[1])
+
+    def _tens_to_text(self, number:str):
+        """Converts single tens place to appropriate Spanish word."""
+        return self.tens.get(number)
 
 
+    ####################
+    # User Input
+    ####################
     def _ask_parameters(self):
         print("What is the max number you want?")
         self.max_number = int(input())
@@ -91,7 +89,9 @@ class SpanishNumbers:
             print('No. ' + str(integer) + ' Try again.')
             self.incorrect += 1
 
-
+    ####################
+    # Run Function
+    ####################
     def run(self):
         print("Hola.  Welcome to Spanish Numbers")
         self._ask_parameters()
@@ -102,16 +102,14 @@ class SpanishNumbers:
 
         correct = self.rounds - self.incorrect
         print('You scored', correct, 'out of', self.rounds)
-        input()
         print('Adios')
-
+        input()
 
 
 
 def main():
     game = SpanishNumbers()
     game.run()
-
 
 
 if __name__ == '__main__':
@@ -123,9 +121,8 @@ if __name__ == '__main__':
 #######
 # Data validation
 # Try again option
-# Refactor - less conversaions, less order flipping
-# Split the 1s and 10s function to follow pattern
-# If the 10s place is a 1, just branch off seperately to a teens exception page
+# Testing Suite
+# Correct double digit numbrse (10s and 20s have no space but 31+ follow 'y num' format)
 
 ########
 # Long Term
