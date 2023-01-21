@@ -1,3 +1,7 @@
+####################
+# Work in progress
+####################
+
 import random
 
 class SpanishNumbers:
@@ -14,16 +18,18 @@ class SpanishNumbers:
         """We convert int to string to allow indexing.  Reversing the int keeps consistency in indexing.  
         For example, ones place is 2nd if two digit number and third in a three digit number.  If reversed it's always first."""
         number = number[::-1]
+        print("Number is...", number)
         text = ''
-        print("INPUTING", number, "from", number)
         if len(number) >= 4:
             text += self._thousands_place_to_text(number[3])
         if len(number) >= 3:
             text += self._hundreds_place_to_text(number[2])
         if len(number) >= 2:
-            text += self._tens_and_ones_place_to_text(number[0:1])
+            print("MORE THAN 2")
+            print(number[0:1])
+            text += self._tens_and_ones_place_to_text(number[0:2])
         if len(number) == 1:
-            text = self._tens_and_ones_place_to_text(number[0:1])
+            text = self._tens_and_ones_place_to_text(number[0])
         return text
 
 
@@ -72,6 +78,7 @@ class SpanishNumbers:
 
     def _ask_number(self):
         integer = random.randint(1, self.max_number)
+        print("int", integer)
         number = str(integer)
         text = self.number_to_text(number)
         print('Que es' , text , '?')
@@ -110,7 +117,18 @@ def main():
 if __name__ == '__main__':
     main()
 
+
+####### 
+# MVP Goals
+#######
 # Data validation
 # Try again option
+# Refactor - less conversaions, less order flipping
+# Split the 1s and 10s function to follow pattern
+# If the 10s place is a 1, just branch off seperately to a teens exception page
+
+########
+# Long Term
+#######
 # Add a GUI
 # Create a GIT website page for it instead (if possible)
