@@ -34,6 +34,9 @@ class SpanishNumbers:
             text += self._hundreds_to_text(reversed_num[2])
         if len(number) >= 2:
             text += self._tens_to_text(reversed_num[1])
+            if int(number) > 30:
+                text += ' y '
+
         text += self.ones.get(number[0])
         return text
 
@@ -76,7 +79,6 @@ class SpanishNumbers:
 
     def _ask_number(self):
         integer = random.randint(1, self.max_number)
-        print("int", integer)
         number = str(integer)
         text = self.number_to_text(number)
         print('Que es' , text , '?')
@@ -122,7 +124,7 @@ if __name__ == '__main__':
 # Data validation
 # Try again option
 # Testing Suite
-# Correct double digit numbrse (10s and 20s have no space but 31+ follow 'y num' format)
+# Correct double digit numbers  (10s and 20s have no space but 31+ follow 'y num' format)
 
 ########
 # Long Term
