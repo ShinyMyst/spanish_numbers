@@ -7,7 +7,7 @@ import random
 class SpanishNumbers:
     def __init__(self):
         self.ones = {'0':'','1':'uno', '2':'dos', '3':'tres', '4':'cuatro', '5':'cinco', '6':'seis', '7':'siete', '8':'ocho', '9':'nueve'}
-        self.tens = {'0':'','1':'dieci', '2':'veinte', '3':'treinta', '4':'cuarenta', '5':'cincuenta', '6':'sesenta', '7':'setenta', '8':'ochenta', '9':'noventa'}
+        self.tens = {'0':'','1':'dieci', '2':'veinti', '3':'treinta', '4':'cuarenta', '5':'cincuenta', '6':'sesenta', '7':'setenta', '8':'ochenta', '9':'noventa'}
         self.exceptions = {'10': 'diez', '11':'once', '12':'doce', '13':'trece', '14':'catorce', '15':'quince'}  
 
         self.max_number = 9999
@@ -31,13 +31,16 @@ class SpanishNumbers:
         if len(number) >= 4:
             text += self._thousands_to_text(reversed_num[3])
         if len(number) >= 3:
-            text += self._hundreds_to_text(reversed_num[2])
+            if number == '100':
+                return 'cien'
+            else:
+                text += self._hundreds_to_text(reversed_num[2])
         if len(number) >= 2:
             text += self._tens_to_text(reversed_num[1])
-            if int(number) > 30:
+            if int(number) > 30 and int(number)%10 != 0:
                 text += ' y '
 
-        text += self.ones.get(number[0])
+        text += self.ones.get(reversed_num[0])
         return text
 
 
@@ -53,13 +56,13 @@ class SpanishNumbers:
         """Converts single hundreds place digit to the appropriate Spanish word"""
         match number:
             case '5':
-                return 'quinientos'
+                return 'quinientos '
             case '1':
-                return 'cientos'
+                return 'ciento '
             case '0':
                 return ''
             case other:
-                return self.ones.get(number) + 'cientos'
+                return self.ones.get(number) + 'cientos '
 
 
     def _tens_to_text(self, number:str):
@@ -123,8 +126,7 @@ if __name__ == '__main__':
 #######
 # Data validation
 # Try again option
-# Testing Suite
-# Correct double digit numbers  (10s and 20s have no space but 31+ follow 'y num' format)
+# May be able to refactor exceptions such as 100 to to more nicely into pattern
 
 ########
 # Long Term
