@@ -73,12 +73,28 @@ class SpanishNumbers:
     ####################
     # User Input
     ####################
+    def _validate_input(self, prompt):
+        while True:
+            try:
+                print(prompt)
+                value = int(input())
+                break
+            except ValueError:
+                print("Invalid input.  Please select a number")
+        return value
+    
     def _ask_parameters(self):
-        print("What is the max number you want?")
-        self.max_number = int(input())
+        prompt = "What is the max number you want?"
+        while True:
+            self.max_number = self._validate_input(prompt)
+            if self.max_number > 9999:
+                print("Please select a number less than 9999.")
+            else:
+                break
 
-        print("How many rounds do you want?")
-        self.rounds = int(input())
+        prompt = "How many rounds do you want?"
+        self.rounds = self._validate_input(prompt)
+
 
     def _ask_number(self):
         integer = random.randint(1, self.max_number)
@@ -100,16 +116,16 @@ class SpanishNumbers:
     def run(self):
         print("Hola.  Welcome to Spanish Numbers")
         self._ask_parameters()
+        total_rounds = self.rounds
 
         while self.rounds > 0:
             self._ask_number()
             self.rounds -= 1
 
-        correct = self.rounds - self.incorrect
-        print('You scored', correct, 'out of', self.rounds)
+        correct = total_rounds - self.incorrect
+        print('You scored', correct, 'out of', total_rounds)
         print('Adios')
         input()
-
 
 
 def main():
@@ -124,7 +140,6 @@ if __name__ == '__main__':
 ####### 
 # MVP Goals
 #######
-# Data validation
 # Try again option
 # May be able to refactor exceptions such as 100 to to more nicely into pattern
 
