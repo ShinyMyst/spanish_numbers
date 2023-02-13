@@ -115,17 +115,24 @@ class SpanishNumbers:
     ####################
     def run(self):
         print("Hola.  Welcome to Spanish Numbers")
-        self._ask_parameters()
-        total_rounds = self.rounds
+        while True:
+            self._ask_parameters()
+            total_rounds = self.rounds
 
-        while self.rounds > 0:
-            self._ask_number()
-            self.rounds -= 1
+            while self.rounds > 0:
+                self._ask_number()
+                self.rounds -= 1
 
-        correct = total_rounds - self.incorrect
-        print('You scored', correct, 'out of', total_rounds)
-        print('Adios')
-        input()
+            # Results
+            correct = total_rounds - self.incorrect
+            print('You scored', correct, 'out of', total_rounds)
+            
+            # Try Again
+            print("Try again?")
+            answer = input()
+            if not answer.lower().startswith('y'):
+                print('Adios')
+                break
 
 
 def main():
