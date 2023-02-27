@@ -38,12 +38,11 @@ class SpanishNumbers:
                 text += self._hundreds_to_text(reversed_num[2])
         if len(number) >= 2:
             text += self._tens_to_text(reversed_num[1])
-            if int(number) > 30 and int(number)%10 != 0:
+            if int(number) > 30 and int(number) % 10 != 0:
                 text += ' y '
 
         text += self.ones.get(reversed_num[0])
         return text
-
 
     def _thousands_to_text(self, number: str):
         """Converts single thousands place digit to Spanish string."""
@@ -51,7 +50,6 @@ class SpanishNumbers:
             return self.ones.get(number) + ' mil'
         else:
             return 'mil'
-
 
     def _hundreds_to_text(self, number: str):
         """Converts single hundreds place digit to Spanish string."""
@@ -62,14 +60,12 @@ class SpanishNumbers:
                 return 'ciento '
             case '0':
                 return ''
-            case other:
+            case other: # noqa
                 return self.ones.get(number) + 'cientos '
-
 
     def _tens_to_text(self, number: str):
         """Converts single tens place to appropriate Spanish word."""
         return self.tens.get(number)
-
 
     ####################
     # User Input
@@ -83,7 +79,7 @@ class SpanishNumbers:
             except ValueError:
                 print("Invalid input.  Please select a number")
         return value
-    
+
     def _ask_parameters(self):
         prompt = "What is the max number you want?"
         while True:
@@ -96,12 +92,11 @@ class SpanishNumbers:
         prompt = "How many rounds do you want?"
         self.rounds = self._validate_input(prompt)
 
-
     def _ask_number(self):
         integer = random.randint(1, self.max_number)
         number = str(integer)
         text = self.number_to_text(number)
-        print('Que es' , text , '?')
+        print('Que es', text, '?')
         answer = input()
 
         # Verify
@@ -127,7 +122,7 @@ class SpanishNumbers:
             # Results
             correct = total_rounds - self.incorrect
             print('You scored', correct, 'out of', total_rounds)
-            
+
             # Try Again
             print("Try again?")
             answer = input()
@@ -145,7 +140,7 @@ if __name__ == '__main__':
     main()
 
 
-####### 
+#######
 # MVP Goals
 #######
 # Try again option
