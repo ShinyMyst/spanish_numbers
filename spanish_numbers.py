@@ -1,14 +1,15 @@
-####################
-# Work in progress
-####################
-
 import random
+import json
+
 
 class SpanishNumbers:
     def __init__(self):
-        self.ones = {'0':'','1':'uno', '2':'dos', '3':'tres', '4':'cuatro', '5':'cinco', '6':'seis', '7':'siete', '8':'ocho', '9':'nueve'}
-        self.tens = {'0':'','1':'dieci', '2':'veinti', '3':'treinta', '4':'cuarenta', '5':'cincuenta', '6':'sesenta', '7':'setenta', '8':'ochenta', '9':'noventa'}
-        self.exceptions = {'10': 'diez', '11':'once', '12':'doce', '13':'trece', '14':'catorce', '15':'quince'}  
+        path = 'Desktop/git-projects/spanish_numbers/number_dict.json'
+        with open(path) as file:
+            data = json.load(file)
+        self.ones = data['ones']
+        self.tens = data['tens']
+        self.exceptions = data['exceptions']
 
         self.max_number = 9999
         self.rounds = 0
@@ -17,7 +18,7 @@ class SpanishNumbers:
     ####################
     # Conversions
     ####################
-    def number_to_text(self, number:str):
+    def number_to_text(self, number: str):
         """Converts a number into Spanish text."""
         # Reversing number keeps index consist.  (Ones place is always [0])
         reversed_num = number[::-1]
@@ -44,16 +45,16 @@ class SpanishNumbers:
         return text
 
 
-    def _thousands_to_text(self, number:str):
-        """Converts single thousands place digit to the appropriate Spanish word"""
+    def _thousands_to_text(self, number: str):
+        """Converts single thousands place digit to Spanish string."""
         if number != '1':
             return self.ones.get(number) + ' mil'
         else:
             return 'mil'
 
 
-    def _hundreds_to_text(self, number:str):
-        """Converts single hundreds place digit to the appropriate Spanish word"""
+    def _hundreds_to_text(self, number: str):
+        """Converts single hundreds place digit to Spanish string."""
         match number:
             case '5':
                 return 'quinientos '
@@ -65,7 +66,7 @@ class SpanishNumbers:
                 return self.ones.get(number) + 'cientos '
 
 
-    def _tens_to_text(self, number:str):
+    def _tens_to_text(self, number: str):
         """Converts single tens place to appropriate Spanish word."""
         return self.tens.get(number)
 

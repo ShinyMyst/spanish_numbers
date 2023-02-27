@@ -1,0 +1,34 @@
+{
+    "ones": {
+        "0": "",
+        "1": "uno",
+        "2": "dos",
+        "3": "tres",
+        "4": "cuatro",
+        "5": "cinco",
+        "6": "seis",
+        "7": "siete",
+        "8": "ocho",
+        "9": "nueve"
+    },
+    "tens": {
+        "0": "",
+        "1": "dieci",
+        "2": "veinti",
+        "3": "treinta",
+        "4": "cuarenta",
+        "5": "cincuenta",
+        "6": "sesenta",
+        "7": "setenta",
+        "8": "ochenta",
+        "9": "noventa"
+    },
+    "exceptions": {
+        "10": "diez",
+        "11": "once",
+        "12": "doce",
+        "13": "trece",
+        "14": "catorce",
+        "15": "quince"
+    }
+}
